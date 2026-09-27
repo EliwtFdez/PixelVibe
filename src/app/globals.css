@@ -131,7 +131,75 @@ html, body {
   font-size: 1.5rem;
 }
 
-.btn-google {
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.auth-input {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font-family: var(--font-ui);
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.auth-input::placeholder {
+  color: var(--text-muted);
+}
+
+.auth-input:focus {
+  border-color: var(--accent);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.auth-message {
+  font-size: 0.8rem;
+  line-height: 1.4;
+  padding: 0.6rem 0.8rem;
+  border-radius: var(--radius-sm);
+  text-align: left;
+}
+
+.auth-error {
+  color: #ff8fa3;
+  background: rgba(255, 101, 132, 0.12);
+  border: 1px solid rgba(255, 101, 132, 0.3);
+}
+
+.auth-info {
+  color: #a8e6cf;
+  background: rgba(108, 230, 160, 0.1);
+  border: 1px solid rgba(108, 230, 160, 0.3);
+}
+
+.auth-switch {
+  margin-top: 1rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.auth-switch button {
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--accent);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.auth-switch button:hover {
+  text-decoration: underline;
+}
+
+.btn-auth {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -152,7 +220,7 @@ html, body {
   overflow: hidden;
 }
 
-.btn-google::before {
+.btn-auth::before {
   content: '';
   position: absolute;
   inset: 0;
@@ -160,27 +228,20 @@ html, body {
   pointer-events: none;
 }
 
-.btn-google:hover {
+.btn-auth:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 28px rgba(108, 99, 255, 0.55);
   background: #7c74ff;
 }
 
-.btn-google:active {
+.btn-auth:active {
   transform: translateY(0);
 }
 
-.btn-google-icon {
-  width: 20px;
-  height: 20px;
-  background: white;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.85rem;
-  color: #4285f4;
-  flex-shrink: 0;
+.btn-auth:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
 }
 
 .landing-footer {

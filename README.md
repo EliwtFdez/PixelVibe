@@ -14,7 +14,7 @@
 - 🧑‍💻 **Avatares en tiempo real** via Supabase Realtime
 - 💬 **Chat por proximidad** — solo ves mensajes de usuarios a < 300px
 - 🎨 **10 colores de avatar** personalizables
-- 🔐 **Auth con Google OAuth** via Supabase
+- 🔐 **Auth con email y contraseña** via Supabase
 - ⚡ **Sincronización cada 200ms** (sin sobrecargar)
 - 🏢 **Muebles isométricos**: escritorios, sillas, plantas, lámparas, sofás
 - 📡 **Depth sorting automático** — los avatares detrás aparecen detrás
@@ -27,7 +27,7 @@
 |------|-----------|
 | Frontend Framework | Next.js 14 (App Router) |
 | Game Engine | Phaser 3 (pixel art, isometric) |
-| Auth & DB | Supabase (Google OAuth + Realtime) |
+| Auth & DB | Supabase (Email Auth + Realtime) |
 | Lenguaje | TypeScript 5 |
 | Deploy | Vercel |
 | Fuentes | Press Start 2P + Inter |
@@ -61,13 +61,15 @@ NEXT_PUBLIC_SUPABASE_URL=https://tu-proyecto.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=tu-anon-key
 ```
 
-### 4. Google OAuth en Supabase
+### 4. Auth por email en Supabase
 
-1. Ve a **Authentication > Providers > Google**
-2. Actívalo y añade tus Client ID / Secret de [Google Cloud Console](https://console.cloud.google.com)
-3. Authorized redirect URIs:
-   - `https://[tu-proyecto].supabase.co/auth/v1/callback`
-   - `http://localhost:3000/auth/callback` (para desarrollo)
+1. Ve a **Authentication > Sign In / Providers > Email** y verifica que esté activado
+2. Opcional: desactiva **Confirm email** si quieres que los usuarios entren sin confirmar su correo
+3. En **Authentication > URL Configuration**:
+   - **Site URL**: `http://localhost:3000` (o tu dominio en producción)
+   - **Redirect URLs**: añade `http://localhost:3000/auth/callback` (y la de producción)
+
+> El servidor SMTP incluido en Supabase tiene un límite bajo de correos por hora. Para producción configura tu propio SMTP en **Authentication > Emails > SMTP Settings**.
 
 ### 5. Habilitar Realtime
 
@@ -94,7 +96,7 @@ src/
 │   │   └── page.tsx        # Sala principal (Phaser + HUD + Chat)
 │   └── auth/
 │       └── callback/
-│           └── route.ts    # OAuth callback
+│           └── route.ts    # Callback de confirmación de email
 ├── components/
 │   ├── PhaserGame.tsx      # Wrapper React para Phaser
 │   ├── HUD.tsx             # Overlay superior
@@ -156,7 +158,7 @@ git push origin main
 #    NEXT_PUBLIC_SUPABASE_URL
 #    NEXT_PUBLIC_SUPABASE_ANON_KEY
 
-# 4. Añade la URL de Vercel al redirect de Google OAuth
+# 4. Añade la URL de Vercel en Supabase > Authentication > URL Configuration
 ```
 
 ## 🎮 Controles
